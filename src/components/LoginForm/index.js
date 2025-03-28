@@ -9,7 +9,7 @@ class LoginForm extends Component {
 
   onSubmitSuccess = jwtToken => {
     const {history} = this.props
-
+    // console.log(history)
     Cookies.set('jwt_token', jwtToken, {expires: 30})
     history.replace('/')
   }
@@ -24,9 +24,11 @@ class LoginForm extends Component {
 
   onChangeUsername = event => {
     this.setState({username: event.target.value})
+    // console.log(event.target.value)
   }
 
   submitForm = async event => {
+    // console.log(event)
     event.preventDefault()
     const {username, password} = this.state
     const userDetails = {username, password}
@@ -36,8 +38,25 @@ class LoginForm extends Component {
       body: JSON.stringify(userDetails),
     }
     const response = await fetch(loginApiUrl, options)
-
+    // console.log(response)
+    //     Response {type: 'cors', url: 'https://apis.ccbp.in/login', redirected: false, status: 200, ok: true, …}
+    // body: (...)
+    // bodyUsed: true
+    // headers: Headers {}
+    // ok: true
+    // redirected: false
+    // status: 200
+    // statusText: ""
+    // type: "cors"
+    // url: "https://apis.ccbp.in/login"
+    // [[Prototype]]: Response
     const data = await response.json()
+    //     console.log(data)
+    //     {jwt_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ…1MzJ9.D13s5wN3Oh59aa_qtXMo3Ec4wojOx0EZh8Xr5C5sRkU'}
+    // jwt_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhaHVsIiwicm9sZSI6IlBSSU1FX1VTRVIiLCJpYXQiOjE2MjMwNjU1MzJ9.D13s5wN3Oh59aa_qtXMo3Ec4wojOx0EZh8Xr5C5sRkU"
+    // [[Prototype]]: Object
+    // console.log(data.error_msg)
+    // username and password didn't match
 
     if (response.ok === true) {
       this.onSubmitSuccess(data.jwt_token)
@@ -90,7 +109,7 @@ class LoginForm extends Component {
     const jwtToken = Cookies.get('jwt_token')
     if (jwtToken !== undefined) {
       return <Redirect to="/" />
-    }
+    } // when already logged in user tries to access login page it redirects to home page
 
     return (
       <>

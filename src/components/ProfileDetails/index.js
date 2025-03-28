@@ -39,6 +39,8 @@ class ProfileDetails extends Component {
         shortBio: data.profile_details.short_bio,
       }
       this.setState({apiStatus: apiStatusConstants.success, profileData})
+      //   console.log(profileData)
+      //   console.log(typeof profileData)
     } else {
       this.setState({apiStatus: apiStatusConstants.failure})
     }
@@ -79,6 +81,7 @@ class ProfileDetails extends Component {
 
   renderProfileDetails = () => {
     const {apiStatus} = this.state
+    // console.log(apiStatus)
 
     switch (apiStatus) {
       case apiStatusConstants.success:
@@ -93,6 +96,7 @@ class ProfileDetails extends Component {
   }
 
   render() {
+    // console.log('render')
     return <>{this.renderProfileDetails()}</>
   }
 }

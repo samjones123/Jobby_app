@@ -48,6 +48,7 @@ const FiltersGroup = props => {
   const onSelectEmployeeType = event => {
     const {changeEmployeeList} = props
     changeEmployeeList(event.target.value)
+    // console.log(event.target.value)
   }
 
   const renderTypeOfEmployment = () => {

@@ -46,6 +46,7 @@
 @media screen and (min-width: 768px) {
   .jobs-error-view-container {
     width: 70%;
+    width: 100%;
     margin-top: 70px;
     padding-bottom: 0px;
   }

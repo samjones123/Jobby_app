@@ -76,13 +76,14 @@ class JobItemDetails extends Component {
     const response = await fetch(url, options)
     if (response.ok === true) {
       const data = await response.json()
-
+      // console.log(data)
       const updatedData = this.getFormattedData(data.job_details)
-
+      // console.log(updatedData)
       const updatedSimilarJobsData = data.similar_jobs.map(eachSimilarJob =>
         this.getFormattedSimilarData(eachSimilarJob),
       )
-
+      // console.log(updatedData)
+      // console.log(updatedSimilarJobsData)
       this.setState({
         jobData: updatedData,
         similarJobsData: updatedSimilarJobsData,
@@ -93,30 +94,36 @@ class JobItemDetails extends Component {
     }
   }
 
-  renderFailureView = () => (
-    <div className='job-item-error-view-container'>
-      <img
-        src='https://assets.ccbp.in/frontend/react-js/failure-img.png'
-        alt='failure view'
-        className='job-item-failure-img'
-      />
-      <h1 className='job-item-failure-heading-text'>
-        Oops! Something Went Wrong
-      </h1>
-      <p className='job-item-failure-description'>
-        We cannot seem to find the page you are looking for
-      </p>
+  renderFailureView = () => {
+    const {match} = this.props
+    const {params} = match
+    // eslint-disable-next-line
+    const {id} = params
+    return (
+      <div className='job-item-error-view-container'>
+        <img
+          src='https://assets.ccbp.in/frontend/react-js/failure-img.png'
+          alt='failure view'
+          className='job-item-failure-img'
+        />
+        <h1 className='job-item-failure-heading-text'>
+          Oops! Something Went Wrong
+        </h1>
+        <p className='job-item-failure-description'>
+          We cannot seem to find the page you are looking for
+        </p>
 
-      <button
-        type='button'
-        data-testid='button'
-        className='job-item-failure-button'
-        onClick={this.getJobData}
-      >
-        Retry
-      </button>
-    </div>
-  )
+        <button
+          type='button'
+          data-testid='button'
+          className='job-item-failure-button'
+          onClick={this.getJobData}
+        >
+          Retry
+        </button>
+      </div>
+    )
+  }
 
   renderLoadingView = () => (
     <div className='job-item-loader-container' data-testid='loader'>
